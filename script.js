@@ -17,7 +17,7 @@ function secondsToMinutesSeconds(seconds) {
 
 async function getSongs(folder) {
    currFolder = folder;
-    let a = await fetch(`http://127.0.0.1:5500/${currFolder}/`);
+    let a = await fetch(`/${currFolder}/`);
     let response = await a.text();
 
     let div = document.createElement("div");
@@ -38,14 +38,14 @@ async function getSongs(folder) {
 
     songUl.innerHTML = "";
     for (const song of songs) {
-        songUl.innerHTML = songUl.innerHTML + `<li><img class="invert" src="/svgs/music.svg" alt="music">
+        songUl.innerHTML = songUl.innerHTML + `<li><img class="invert" src="svgs/music.svg" alt="music">
         <div class="info">
             <div>${song.replaceAll("%20", " ").replaceAll(".mp3", "")}</div>
             
         </div>
         <div class="playnow">
             <span>Play Now</span>
-            <img src="/svgs/play.svg" class="invert" alt="play now">
+            <img src="svgs/play.svg" class="invert" alt="play now">
         </div>                  
         </li>`;
     
@@ -67,7 +67,7 @@ function playMusic( track, pause = false) {
     
     if (!pause) {
         currentSong.play();
-        play.src = "/svgs/pause.svg";
+        play.src = "svgs/pause.svg";
     }
     document.querySelector(".song-info").innerHTML = `${track}`;
     document.querySelector(".song-time").innerHTML = "00:00 / 00:00";
@@ -76,7 +76,7 @@ function playMusic( track, pause = false) {
 
 
 async function displayAlbums(){
-    let a = await fetch("http://127.0.0.1:5500/songs/")
+    let a = await fetch("/songs/")
     let response = await a.text();
     let div = document.createElement("div")
     div.innerHTML = response;
@@ -85,7 +85,7 @@ async function displayAlbums(){
     for (const e of anchors) {
         if (e.href.includes("/songs/")) {
             const folder = e.href.split("/songs/")[1];
-    let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
+    let a = await fetch(`/songs/${folder}/info.json`);
     let resp = await a.json().catch(err => console.error(err));
     
     cards.innerHTML= cards.innerHTML + `<div data-folder='${folder}' class="card">
@@ -133,12 +133,12 @@ async function displayAlbums(){
     play.addEventListener("click", () => {
         if (currentSong.paused) {
             currentSong.play();
-            play.src = "/svgs/pause.svg";
+            play.src = "svgs/pause.svg";
         }
 
         else {
             currentSong.pause();
-            play.src = "/svgs/play.svg";
+            play.src = "svgs/play.svg";
         }
     })
 
@@ -147,7 +147,7 @@ async function displayAlbums(){
         document.querySelector(".song-time").innerHTML = `${secondsToMinutesSeconds(currentSong.currentTime)} / ${secondsToMinutesSeconds(currentSong.duration)}`
         document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
         if ((currentSong.currentTime / currentSong.duration) * 100 + "%" === "100%") {
-            play.src = "/svgs/play.svg";
+            play.src = "svgs/play.svg";
             next.click();
         }
     })
@@ -197,12 +197,12 @@ async function displayAlbums(){
    document.querySelector(".volume > img").addEventListener("click", e => {
     console.log(e);
     if (currentSong.volume === 0){
-        e.target.src = "/svgs/vol.svg";
+        e.target.src = "svgs/vol.svg";
         currentSong.volume = 0.20;
         document.querySelector(".range").getElementsByTagName("input")[0].value = (currentSong.volume)*100;
     }
     else{
-        e.target.src = "/svgs/mute.svg";
+        e.target.src = "svgs/mute.svg";
         currentSong.volume = 0;
         document.querySelector(".range").getElementsByTagName("input")[0].value = (currentSong.volume)*100;
     }
