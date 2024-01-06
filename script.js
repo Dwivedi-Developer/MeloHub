@@ -17,7 +17,7 @@ function secondsToMinutesSeconds(seconds) {
 
 async function getSongs(folder) {
    currFolder = folder;
-    let a = await fetch(`https://dwivedi-developer.github.io/${currFolder}/`);
+    let a = await fetch(`http://127.0.0.1:5500/${currFolder}/`);
     let response = await a.text();
     
 
@@ -69,7 +69,7 @@ Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEa
 
 
 function playMusic( track, pause = false) {
-    currentSong.src = `/${currFolder}/` + track + ".mp3";
+    currentSong.src = "MeloHub" +`/${currFolder}/` + track + ".mp3";
     console.log(currentSong.src);
     
     if (!pause) {
@@ -129,7 +129,7 @@ async function displayAlbums(){
  async function main() {
 
     
-    await getSongs("MeloHub/songs/bhakti.mp3");
+    await getSongs("songs/bhakti.mp3");
     playMusic(songs[0].replaceAll("%20", " ").replaceAll(".mp3", ""),true);
     
     
