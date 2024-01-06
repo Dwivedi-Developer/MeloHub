@@ -69,8 +69,8 @@ Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEa
 
 
 function playMusic( track, pause = false) {
-    currentSong.src = `MeloHub/${currFolder}/` + track + ".mp3";
-    
+    currentSong.src = `/${currFolder}/` + track + ".mp3";
+    console.log(currentSong.src);
     
     if (!pause) {
         currentSong.play();
@@ -129,7 +129,7 @@ async function displayAlbums(){
  async function main() {
 
     
-    await getSongs("songs/bhakti.mp3");
+    await getSongs("MeloHub/songs/bhakti.mp3");
     playMusic(songs[0].replaceAll("%20", " ").replaceAll(".mp3", ""),true);
     
     
