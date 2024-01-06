@@ -19,20 +19,27 @@ async function getSongs(folder) {
    currFolder = folder;
     let a = await fetch(`http://127.0.0.1:5500/${currFolder}/`);
     let response = await a.text();
+    
 
     let div = document.createElement("div");
     div.innerHTML = response;
+
+    
     
     let as = div.getElementsByTagName("a");
 
     songs = [];
-    for (let i = 0; i < as.length; i++) {
-        const element = as[i];
-        if (element.href.endsWith(".mp3")) {
-            songs.push(element.href.split(`/${currFolder}/`)[1]);
+for (let i = 0; i < as.length; i++) {
+    const element = as[i];
+    if (element.href && element.href.endsWith(".mp3")) {
+        const splitArray = element.href.split(`/${currFolder}/`);
+        if (splitArray.length > 1) {
+            songs.push(splitArray[1]);
         }
     }
-    
+}
+
+    console.log(songs);
 
     let songUl = document.querySelector(".songList").getElementsByTagName("ul")[0];
 
@@ -76,7 +83,7 @@ function playMusic( track, pause = false) {
 
 
 async function displayAlbums(){
-    let a = await fetch("/songs/")
+    let a = await fetch("http://127.0.0.1:5500/songs/")
     let response = await a.text();
     let div = document.createElement("div")
     div.innerHTML = response;
@@ -122,7 +129,7 @@ async function displayAlbums(){
  async function main() {
 
     
-    await getSongs("songs/bhakti");
+    await getSongs("songs/bhakti.mp3");
     playMusic(songs[0].replaceAll("%20", " ").replaceAll(".mp3", ""),true);
     
     
