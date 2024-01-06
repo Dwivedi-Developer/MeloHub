@@ -17,6 +17,7 @@ function secondsToMinutesSeconds(seconds) {
 
 async function getSongs(folder) {
    currFolder = folder;
+   
     let a = await fetch(`http://127.0.0.1:5500/${currFolder}/`);
     let response = await a.text();
     
@@ -39,7 +40,7 @@ for (let i = 0; i < as.length; i++) {
     }
 }
 
-    console.log(songs);
+    
 
     let songUl = document.querySelector(".songList").getElementsByTagName("ul")[0];
 
@@ -61,6 +62,7 @@ Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEa
     e.addEventListener("click", element => {
        
         playMusic(e.querySelector(".info").firstElementChild.innerHTML);
+        
     })
 
 })
@@ -69,8 +71,8 @@ Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEa
 
 
 function playMusic( track, pause = false) {
-    currentSong.src = "MeloHub" +`/${currFolder}/` + track + ".mp3";
-    console.log(currentSong.src);
+    currentSong.src ="https://dwivedi-developer.github.io/MeloHub/"+`${currFolder}/` + track + ".mp3";
+    
     
     if (!pause) {
         currentSong.play();
@@ -202,7 +204,7 @@ async function displayAlbums(){
     });
 
    document.querySelector(".volume > img").addEventListener("click", e => {
-    console.log(e);
+    
     if (currentSong.volume === 0){
         e.target.src = "svgs/vol.svg";
         currentSong.volume = 0.20;
