@@ -69,7 +69,7 @@ Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEa
 
 
 function playMusic( track, pause = false) {
-    currentSong.src = `/${currFolder}/` + track + ".mp3";
+    currentSong.src = `MeloHub/${currFolder}/` + track + ".mp3";
     
     
     if (!pause) {
