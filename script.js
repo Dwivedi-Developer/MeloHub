@@ -17,7 +17,7 @@ function secondsToMinutesSeconds(seconds) {
 
 async function getSongs(folder) {
    currFolder = folder;
-    let a = await fetch(`http://127.0.0.1:5500/${currFolder}/`);
+    let a = await fetch(`https://dwivedi-developer.github.io/MeloHub/${currFolder}/`);
     let response = await a.text();
 
     let div = document.createElement("div");
@@ -85,7 +85,7 @@ async function displayAlbums(){
     for (const e of anchors) {
         if (e.href.includes("/songs/")) {
             const folder = e.href.split("/songs/")[1];
-    let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
+    let a = await fetch(`https://dwivedi-developer.github.io/MeloHub/songs/${folder}/info.json`);
     let resp = await a.json().catch(err => console.error(err));
     
     cards.innerHTML= cards.innerHTML + `<div data-folder='${folder}' class="card">
